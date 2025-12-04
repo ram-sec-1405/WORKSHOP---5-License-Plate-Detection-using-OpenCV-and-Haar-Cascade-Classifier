@@ -42,6 +42,7 @@ plt.show()
 # --- 3. Detection Functions ---
 
 # Face detection function
+```
 def detect_face(img):
     face_img = img.copy()
     # The detectMultiScale function detects objects of different sizes in the input image. 
@@ -51,8 +52,10 @@ def detect_face(img):
         # Draw a white rectangle around the detected face
         cv2.rectangle(face_img, (x, y), (x + w, y + h), (255, 255, 255), 2)
     return face_img
+```
 
 # Adjusted face detection function (for better results on group/complex photos)
+```
 def adj_detect_face(img):
     face_img = img.copy()
     # scaleFactor=1.2: Specifies how much the image size is reduced at each image scale
@@ -61,16 +64,20 @@ def adj_detect_face(img):
     for (x, y, w, h) in face_rects:
         cv2.rectangle(face_img, (x, y), (x + w, y + h), (255, 255, 255), 2)
     return face_img
+```
 
 # Eye detection function
+```
 def detect_eyes(img):
     face_img = img.copy()
     eyes = eye_cascade.detectMultiScale(face_img)
     for (x, y, w, h) in eyes:
         cv2.rectangle(face_img, (x, y), (x + w, y + h), (255, 255, 255), 2)
     return face_img
+```
 
 # --- 4. Applying Face Detection ---
+```
 print("Applying Face Detection...")
 result_glass = detect_face(withglass)
 result_group = detect_face(group)
@@ -79,15 +86,19 @@ plt.figure(figsize=(10, 4))
 plt.subplot(1, 2, 1), plt.imshow(result_glass, cmap='gray'), plt.title('Face Detection (Glasses)')
 plt.subplot(1, 2, 2), plt.imshow(result_group, cmap='gray'), plt.title('Face Detection (Group)')
 plt.show()
+```
 
 # --- 5. Applying Adjusted Face Detection ---
+```
 print("Applying Adjusted Face Detection...")
 result_adj_group = adj_detect_face(group)
 plt.imshow(result_adj_group, cmap='gray')
 plt.title('Adjusted Face Detection (Group)')
 plt.show()
+```
 
 # --- 6. Applying Eye Detection ---
+```
 print("Applying Eye Detection...")
 result_eyes_model = detect_eyes(model)
 result_eyes_glass = detect_eyes(withglass)
@@ -96,8 +107,10 @@ plt.figure(figsize=(10, 4))
 plt.subplot(1, 2, 1), plt.imshow(result_eyes_model, cmap='gray'), plt.title('Eye Detection (Model)')
 plt.subplot(1, 2, 2), plt.imshow(result_eyes_glass, cmap='gray'), plt.title('Eye Detection (Glasses)')
 plt.show()
+```
 
 # --- 7. Corrected Live Webcam Detection ---
+```
 print("\nStarting Live Webcam Face Detection...")
 # Initial setup
 cap = cv2.VideoCapture(0)
@@ -141,6 +154,7 @@ while cap.isOpened() and frame_count < MAX_FRAMES:
 cap.release()
 plt.close(fig) # Close the figure for the video feed
 print("Webcam stream ended and resources released.")
+```
 
 
 # OUTPUT:
